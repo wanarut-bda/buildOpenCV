@@ -2,7 +2,7 @@
 # License: MIT. See license file in root directory
 # Copyright(c) JetsonHacks (2017-2019)
 
-OPENCV_VERSION=4.1.1
+OPENCV_VERSION=4.5.3
 # Jetson Nano
 ARCH_BIN=5.3
 INSTALL_DIR=/usr/local
@@ -106,7 +106,7 @@ cd /usr/local/cuda/include
 sudo patch -N cuda_gl_interop.h $WHEREAMI'/patches/OpenGLHeader.patch' 
 
 # Python 2.7
-sudo apt-get install -y python-dev  python-numpy  python-py  python-pytest
+# sudo apt-get install -y python-dev  python-numpy  python-py  python-pytest
 # Python 3.6
 sudo apt-get install -y python3-dev python3-numpy python3-py python3-pytest
 
@@ -163,7 +163,7 @@ time cmake -D CMAKE_BUILD_TYPE=RELEASE \
       -D WITH_GSTREAMER_0_10=OFF \
       -D WITH_QT=ON \
       -D WITH_OPENGL=ON \
-      -D BUILD_opencv_python2=ON \
+      -D BUILD_opencv_python2=OFF \
       -D BUILD_opencv_python3=ON \
       -D BUILD_TESTS=OFF \
       -D BUILD_PERF_TESTS=OFF \
@@ -240,7 +240,7 @@ fi
 
 
 # check installation
-IMPORT_CHECK="$(python -c "import cv2 ; print cv2.__version__")"
+IMPORT_CHECK="$(python3 -c "import cv2 ; print cv2.__version__")"
 if [[ $IMPORT_CHECK != *$OPENCV_VERSION* ]]; then
   echo "There was an error loading OpenCV in the Python sanity test."
   echo "The loaded version does not match the version built here."
